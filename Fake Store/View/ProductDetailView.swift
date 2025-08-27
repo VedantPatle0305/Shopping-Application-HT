@@ -149,14 +149,27 @@ struct ProductDetailView: View {
                 .foregroundColor(.white)
                 .cornerRadius(12)
                 
+                Text("Delivery on 3rd May")
+                    .font(.subheadline)
+                    .fontWeight(.light)
+                
             }
             .padding()
             .navigationTitle("Product Detail")
             .toolbar {
                 NavigationLink(destination: CartView(cartVM: cartVM)) {
-                    HStack {
+                    ZStack(alignment: .topTrailing) {
                         Image(systemName: "cart")
-                        Text("\(cartVM.cartItems.count)")
+                            .font(.title3)
+                        if cartVM.cartItems.count > 0 {
+                            Text("\(cartVM.cartItems.count)")
+                                .font(.caption2)
+                                .foregroundColor(.white)
+                                .padding(5)
+                                .background(Color.gray)
+                                .clipShape(Circle())
+                                .offset(x: 10, y: -10)
+                        }
                     }
                 }
             }

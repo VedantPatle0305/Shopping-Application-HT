@@ -27,42 +27,52 @@ struct CartView: View {
             .frame(width: screenWidth*0.9, height: 50)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.black, lineWidth: 1)
+                    .stroke(Color.gray, lineWidth: 1)
             )
             
-            List {
-                ForEach(cartVM.cartItems) { product in
-                    HStack {
-                        AsyncImage(url: URL(string: product.image)) { image in
-                            image.resizable().scaledToFit()
-                        } placeholder: {
-                            ProgressView()
-                        }
-                        .frame(width: 50, height: 50)
-                        
-                        Text(product.title)
-                            .lineLimit(2)
-                        Spacer()
-                        Text("$\(product.price, specifier: "%.2f")")
-                    }
-                    .padding()
-                    .frame(width: screenWidth*0.9)
-                    .background(Color.secondary.opacity(0.2))
-                    .cornerRadius(10)
-//                    .overlay(
-//                        RoundedRectangle(cornerRadius: 10)
-//                            .stroke(Color.gray, lineWidth: 0.5)
-//                    )
-
+            if cartVM.cartItems.isEmpty {
+                VStack(spacing: 12) {
+                    Image(systemName: "cart")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 80, height: 80)
+                        .foregroundColor(.gray)
+                                    
+                    Text("Your cart is empty")
+                        .font(.headline)
+                        .foregroundColor(.gray)
                 }
-                .onDelete { indexSet in
-                    cartVM.cartItems.remove(atOffsets: indexSet)
-                }
-//                .listRowSeparator(.hidden)
-//                .listRowSpacing(5)
+                .frame(maxHeight: .infinity)
             }
-            .listStyle(.plain)
-            .frame(width: screenWidth)
+            else{
+                List {
+                    ForEach(cartVM.cartItems) { product in
+                        HStack {
+                            AsyncImage(url: URL(string: product.image)) { image in
+                                image.resizable().scaledToFit()
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            .frame(width: 50, height: 50)
+                            
+                            Text(product.title)
+                                .lineLimit(2)
+                            Spacer()
+                            Text("$\(product.price, specifier: "%.2f")")
+                        }
+                        .padding()
+                        .frame(width: screenWidth*0.9)
+                        .cornerRadius(10)
+                    }
+                    .onDelete { indexSet in
+                        cartVM.cartItems.remove(atOffsets: indexSet)
+                    }
+                }
+                .listStyle(.plain)
+                .frame(width: screenWidth)
+            }
+            
+            
             
             Button("Checkout") {
                 showThankYou = true
@@ -73,8 +83,12 @@ struct CartView: View {
             .foregroundColor(.white)
             .cornerRadius(12)
             .padding()
+            .disabled(cartVM.cartItems.isEmpty)
+            .opacity(cartVM.cartItems.isEmpty ? 0.9 : 1)
             .alert("Thank You!", isPresented: $showThankYou) {
-                Button("OK", role: .cancel) {}
+                Button("OK", role: .cancel) {
+                    cartVM.clearCart()
+                }
             }
         }
         .navigationTitle("Cart")

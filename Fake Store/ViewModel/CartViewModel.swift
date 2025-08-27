@@ -22,4 +22,8 @@ class CartViewModel: ObservableObject {
     func isInCart(item: Product) -> Bool {
         return cartItems.contains(item)
     }
+    
+    func clearCart() {
+        cartItems.removeAll()
+    }
 }

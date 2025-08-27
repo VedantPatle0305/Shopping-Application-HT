@@ -21,12 +21,26 @@ struct ProductItemView: View {
                     if viewModel.isLoading {
                         ProgressView("Loading...")
                     } else if let error = viewModel.errorMessage {
-                        Text("Error: \(error)")
+                        Text("Error: \(error) Check your internet connection. Try again later.")
+                            .font(.headline)
+                            .frame(width: screenWidth*0.9)
+                            .foregroundColor(Color.red.opacity(0.9))
                     } else {
                         ScrollView {
                             
                             ZStack{
-                                LinearGradient(gradient: Gradient(colors: [.blue, .purple]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                                LinearGradient(gradient: Gradient(colors: [.green, .blue]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                                
+//                                HStack{
+//                                    TextField("Search", text: $viewModel.searchText)
+//                                        .padding()
+//                                        .background(Color.white)
+//                                        .cornerRadius(10)
+//                                    Image(systemName: "magnifyingglass")
+//                                        .foregroundColor(.gray)
+//                                }
+//                                .frame(width: screenWidth*0.9)
+//                                .background(Color.blue.opacity(0.3))
                                 
                                 HStack(spacing: 0) {
                                     Text("Delivery is ")
@@ -45,7 +59,7 @@ struct ProductItemView: View {
                                         .renderingMode(.original)
                                         
                                 }
-                                .padding(6)
+                                .padding(12)
                                 
                             }
                             .frame(width: screenWidth*0.85)
@@ -79,12 +93,22 @@ struct ProductItemView: View {
                     
                     ToolbarItem(placement: .topBarTrailing) {
                         NavigationLink(destination: CartView(cartVM: cartVM)) {
-                            HStack {
+                            ZStack(alignment: .topTrailing) {
                                 Image(systemName: "cart")
-                                Text("\(cartVM.cartItems.count)")
+                                    .font(.title3)
+                                if cartVM.cartItems.count > 0 {
+                                    Text("\(cartVM.cartItems.count)")
+                                        .font(.caption2)
+                                        .foregroundColor(.white)
+                                        .padding(5)
+                                        .background(Color.gray)
+                                        .clipShape(Circle())
+                                        .offset(x: 10, y: -10)
+                                }
                             }
                         }
                     }
+
                     
                    
                 }
