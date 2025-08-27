@@ -152,6 +152,14 @@ struct ProductDetailView: View {
             }
             .padding()
             .navigationTitle("Product Detail")
+            .toolbar {
+                NavigationLink(destination: CartView(cartVM: cartVM)) {
+                    HStack {
+                        Image(systemName: "cart")
+                        Text("\(cartVM.cartItems.count)")
+                    }
+                }
+            }
         }
     }
 }

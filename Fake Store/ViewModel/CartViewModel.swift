@@ -23,19 +23,3 @@ class CartViewModel: ObservableObject {
         return cartItems.contains(item)
     }
 }
-
-//#Preview {
-//    let mockProduct = Product(
-//        id: 1,
-//        title: "Test Product",
-//        price: 9.99,
-//        description: "A sample product for preview purposes.",
-//        image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-//        rating: Rating(rate: 4.5, count: 120)
-//    )
-//
-//    let cartVM = CartViewModel()
-//    cartVM.cartItems = [mockProduct]
-//
-//    return CartView(cartVM: cartVM) // ✅ preview a View, not ViewModel
-//}
