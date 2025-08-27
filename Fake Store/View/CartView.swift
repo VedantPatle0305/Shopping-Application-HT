@@ -16,16 +16,16 @@ struct CartView: View {
             List {
                 ForEach(cartVM.cartItems) { product in
                     HStack {
-                        AsyncImage(url: URL(string: product.image!)) { image in
+                        AsyncImage(url: URL(string: product.image)) { image in
                             image.resizable().scaledToFit()
                         } placeholder: {
                             ProgressView()
                         }
                         .frame(width: 50, height: 50)
                         
-                        Text(product.title!)
+                        Text(product.title)
                         Spacer()
-                        Text("$\(product.price!, specifier: "%.2f")")
+                        Text("$\(product.price, specifier: "%.2f")")
                     }
                 }
             }

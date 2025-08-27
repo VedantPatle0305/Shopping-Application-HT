@@ -8,8 +8,8 @@
 import Foundation
 
 struct Rating: Codable {
-    let rate: Double?
-    let count: Int?
+    let rate: Double
+    let count: Int
 }
 
 struct Product: Codable, Identifiable, Equatable{
@@ -17,11 +17,11 @@ struct Product: Codable, Identifiable, Equatable{
         return lhs.id == rhs.id
     }
     
-    let id: Int?
-    let title: String?
-    let price: Double?
-    let description: String?
-    let image: String?
+    let id: Int
+    let title: String
+    let price: Double
+    let description: String
+    let image: String
     let rating: Rating
 }
 
