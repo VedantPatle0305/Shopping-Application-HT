@@ -26,7 +26,6 @@ struct ProductDetailView: View {
                     ProgressView()
                 }
                 .frame(width: screenwidth*0.9,height: screenheight*0.35)
-//                .border(Color.gray, width: 1)
                 
                 VStack(alignment: .leading){
                     Text(product.title)
@@ -34,7 +33,6 @@ struct ProductDetailView: View {
                         .font(.title2)
                         .bold()
                         .lineLimit(2)
-//                        .border(Color.gray, width: 1)
                 }
                 
                 HStack{
@@ -66,14 +64,12 @@ struct ProductDetailView: View {
                 }
                 .frame(width: screenwidth*0.9)
                 .padding(3)
-//                .border(Color.black, width: 1)
                 
                 HStack(alignment: .center){
                     Text("$\(product.price, specifier: "%.2f")")
                         .font(.title2)
                         .fontWeight(.semibold)
                         .foregroundColor(.black)
-//                        .border(Color.gray, width: 1)
                     
                     Text("from $5 per month")
                         .font(.caption)
@@ -119,7 +115,7 @@ struct ProductDetailView: View {
                             .hidden()
                     )
                                     
-                    if truncated { // show button only if needed
+                    if truncated {
                         Button(action: {
                             withAnimation {
                                 expandedDescription.toggle()

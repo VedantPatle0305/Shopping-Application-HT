@@ -13,7 +13,8 @@ struct ProductItemView: View {
     
     let screenWidth = UIScreen.main.bounds.width
         
-        let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    @State var searchText: String = ""
         
         var body: some View {
             NavigationView {
@@ -28,20 +29,22 @@ struct ProductItemView: View {
                     } else {
                         ScrollView {
                             
+                            HStack{
+                                TextField("Search", text: $searchText)
+                                    .padding()
+                                    .cornerRadius(10)
+                                Image(systemName: "magnifyingglass")
+                                    .foregroundColor(.gray)
+                                    .padding(.trailing, 8)
+                            }
+                            .frame(width: screenWidth*0.85)
+                            .background(Color.secondary.opacity(0.2))
+                            .cornerRadius(12)
+                            .padding(.top, 15)
+                            
                             ZStack{
                                 LinearGradient(gradient: Gradient(colors: [.green, .blue]), startPoint: .topLeading, endPoint: .bottomTrailing)
-                                
-//                                HStack{
-//                                    TextField("Search", text: $viewModel.searchText)
-//                                        .padding()
-//                                        .background(Color.white)
-//                                        .cornerRadius(10)
-//                                    Image(systemName: "magnifyingglass")
-//                                        .foregroundColor(.gray)
-//                                }
-//                                .frame(width: screenWidth*0.9)
-//                                .background(Color.blue.opacity(0.3))
-                                
+
                                 HStack(spacing: 0) {
                                     Text("Delivery is ")
                                         .font(.headline)
@@ -76,7 +79,6 @@ struct ProductItemView: View {
                                 }
                             }
                             .padding()
-                            
                         }
                     }
                 }
@@ -108,9 +110,6 @@ struct ProductItemView: View {
                             }
                         }
                     }
-
-                    
-                   
                 }
             }
             .task {

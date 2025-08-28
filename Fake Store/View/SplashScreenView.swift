@@ -19,7 +19,7 @@ struct SplashScreenView: View {
                 .edgesIgnoringSafeArea(.all)
 
             VStack(spacing: 20) {
-                Image("Icon") // Replace with your custom logo asset name
+                Image("Icon")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 140, height: 140)
