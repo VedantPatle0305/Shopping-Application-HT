@@ -46,6 +46,10 @@ struct CartView: View {
             }
             else{
                 
+                Divider()
+                    .frame(height: 5)
+                    .background(Color.gray.opacity(0.2))
+                
                 HStack(alignment: .center) {
                     Button(action: {
                         if cartVM.isAllSelected() {
