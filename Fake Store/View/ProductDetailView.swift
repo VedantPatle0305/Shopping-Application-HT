@@ -20,21 +20,40 @@ struct ProductDetailView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                AsyncImage(url: URL(string: product.image)) { image in
-                    image.resizable().scaledToFit()
-                } placeholder: {
-                    ProgressView()
+                ZStack(alignment: .topTrailing){
+                    
+                    Button {
+                        cartVM.toggleCart(item: product)
+                    } label: {
+                        Image(systemName: cartVM.isInCart(item: product) ? "heart.fill" : "heart")
+                            .resizable()
+                            .scaledToFit()
+                            .foregroundColor(.red)
+                    }
+                    .padding()
+                    .frame(width: 50, height: 50)
+                    .background(
+                        RoundedRectangle(cornerRadius: 100)
+                            .fill(Color(.systemGray5))
+                    )
+                    
+                    
+                    AsyncImage(url: URL(string: product.image)) { image in
+                        image.resizable().scaledToFit()
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .frame(width: screenwidth*0.9,height: screenheight*0.35)
                 }
-                .frame(width: screenwidth*0.9,height: screenheight*0.35)
                 
-                VStack(alignment: .leading){
-                    Text(product.title)
-                        .frame(width: screenwidth*0.9)
-                        .font(.title2)
-                        .bold()
-                        .lineLimit(2)
-                }
                 
+                Text(product.title)
+                    .frame(width: screenwidth*0.9, alignment: .leading)
+                    .font(.title2)
+                    .bold()
+                    .lineLimit(2)
+
+
                 HStack{
                     HStack(alignment: .center, spacing: 5){
                         Text("⭐️ \(product.rating.rate, specifier: "%.1f")")
@@ -104,7 +123,7 @@ struct ProductDetailView: View {
                                                 Color.clear.onAppear {
                                                     let fullHeight = geo.size.height
                                         let lineHeight = UIFont.preferredFont(forTextStyle: .body).lineHeight
-                                        let limitedHeight = lineHeight * 3 // 3 lines
+                                        let limitedHeight = lineHeight * 3
                                                             
                                         if fullHeight > limitedHeight {
                                             truncated = true
