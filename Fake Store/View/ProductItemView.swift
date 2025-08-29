@@ -46,16 +46,15 @@ struct ProductItemView: View {
                 } else {
                     ScrollView {
                         
-                        // 🔎 Search bar
                         VStack(spacing: 5) {
                             HStack {
-                                TextField("Search", text: $searchText)
+                                TextField("Search the entire Shop", text: $searchText)
                                     .padding()
                                 Image(systemName: "magnifyingglass")
                                     .foregroundColor(.gray)
                                     .padding(.trailing, 12)
                             }
-                            .frame(width: screenWidth * 0.85)
+                            .frame(width: screenWidth * 0.88)
                             .background(Color.secondary.opacity(0.2))
                             .cornerRadius(12)
                             .padding(.top, 10)
@@ -105,9 +104,16 @@ struct ProductItemView: View {
                                     )
                                     .shadow(color: .cyan.opacity(0.4), radius: 6, x: 0, y: 2)
                             }
-                            .frame(width: screenWidth * 0.85)
+                            .padding(.bottom, 10)
+                            .frame(width: screenWidth * 0.88)
+
                         }
+                        .frame(width: screenWidth)
+                        .cornerRadius(10)
                         
+                        Divider()
+                            .frame(height: 5)
+                            .background(Color.gray.opacity(0.3))
                         
                         // Displaying Categories
                         VStack {
@@ -153,7 +159,6 @@ struct ProductItemView: View {
                                 .padding(.bottom)
                             }
                         }
-//                        .border(Color.black)
                         
                         // Products grid
                         VStack {
@@ -180,7 +185,6 @@ struct ProductItemView: View {
                             }
                             .padding(4)
                             .frame(width: screenWidth * 0.89)
-//                            .border(Color.black)
                             
                             
                             LazyVGrid(columns: columns, spacing: 16) {
@@ -195,7 +199,6 @@ struct ProductItemView: View {
                             .padding()
                         
                         }
-//                        .border(Color.black)
                         
                     }
                 }

@@ -10,6 +10,7 @@ import SwiftUI
 struct CartView: View {
     @ObservedObject var cartVM: CartViewModel
     @State private var showThankYou = false
+//    @State private var selectAll = true
     
     let screenWidth = UIScreen.main.bounds.width
     
@@ -17,18 +18,20 @@ struct CartView: View {
         VStack {
             HStack{
                 Image(systemName: "location.circle.fill")
-                    .renderingMode(.original)
+                    .foregroundColor(Color.gray)
                 
                 Text("Apt 5B, Springfield, CA")
+                    .font(.subheadline)
                 Spacer()
                 Image(systemName: "chevron.right")
+                    .foregroundColor(Color.gray)
             }
             .padding()
             .frame(width: screenWidth*0.9, height: 50)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.gray, lineWidth: 1)
-            )
+            .background(Color(.systemGray5))
+            .cornerRadius(12)
+            
+            
             
             if cartVM.cartItems.isEmpty {
                 VStack(spacing: 12) {
@@ -53,7 +56,10 @@ struct CartView: View {
                             } placeholder: {
                                 ProgressView()
                             }
-                            .frame(width: 50, height: 50)
+                            .padding(10)
+                            .frame(width: 60, height: 60)
+                            .background(Color.gray.opacity(0.1))
+                            .cornerRadius(10)
                             
                             Text(product.title)
                                 .lineLimit(2)
@@ -108,5 +114,5 @@ struct CartView: View {
     let cartVM = CartViewModel()
     cartVM.cartItems = [mockProduct]
 
-    return CartView(cartVM: cartVM) // ✅ preview a View, not ViewModel
+    return CartView(cartVM: cartVM)
 }
