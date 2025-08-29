@@ -83,7 +83,7 @@ struct ProductItemView: View {
                                 .frame(height: 50)
                                 .background(
                                     LinearGradient(
-                                        colors: [Color.green.opacity(0.7), Color.cyan.opacity(0.8)],
+                                        colors: [Color.green.opacity(0.2), Color.cyan.opacity(0.5)],
                                         startPoint: .topLeading,
                                         endPoint: .bottomTrailing
                                     )
@@ -97,7 +97,7 @@ struct ProductItemView: View {
                                     .offset(x: screenWidth * 0.32)
                                     .foregroundStyle(
                                         LinearGradient(
-                                            colors: [Color.cyan, Color.green.opacity(0.6), Color.white],
+                                            colors: [Color.cyan, Color.cyan.opacity(0)],
                                             startPoint: .top,
                                             endPoint: .bottom
                                         )
