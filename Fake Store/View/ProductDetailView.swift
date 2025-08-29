@@ -22,20 +22,38 @@ struct ProductDetailView: View {
             VStack(spacing: 20) {
                 ZStack(alignment: .topTrailing){
                     
-                    Button {
-                        cartVM.toggleCart(item: product)
-                    } label: {
-                        Image(systemName: cartVM.isInCart(item: product) ? "heart.fill" : "heart")
-                            .resizable()
-                            .scaledToFit()
-                            .foregroundColor(.red)
+                    HStack{
+//                        Image(systemName: "chevron.left")
+//                            .frame(width: 50, height: 50)
+//                            .background(
+//                                Color(.systemGray5)
+//                                    .cornerRadius(100)
+//                            )
+//                        
+//                        Spacer()
+//                        
+//                        Button {
+//                            cartVM.toggleCart(item: product)
+//                        } label: {
+//                            Image(systemName: cartVM.isInCart(item: product) ? "heart.fill" : "heart")
+//                                .resizable()
+//                                .scaledToFit()
+//                                .foregroundColor(.red)
+//                        }
+//                        .padding()
+//                        .frame(width: 50, height: 50)
+//                        .background(
+//                            Color(.systemGray5)
+//                                .cornerRadius(100)
+//                        )
+                        
+                        Image(systemName: "square.and.arrow.up")
+                            .frame(width: 50, height: 50)
+                            .background(
+                                Color(.systemGray5)
+                                    .cornerRadius(100)
+                            )
                     }
-                    .padding()
-                    .frame(width: 50, height: 50)
-                    .background(
-                        RoundedRectangle(cornerRadius: 100)
-                            .fill(Color(.systemGray5))
-                    )
                     
                     
                     AsyncImage(url: URL(string: product.image)) { image in
