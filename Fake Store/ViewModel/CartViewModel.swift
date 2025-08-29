@@ -15,6 +15,8 @@ class CartViewModel: ObservableObject {
         }
     }
     
+    @Published var selectedItems: Set<Product> = []
+    
     private let cartKey = "savedCart"
     
     init() {
@@ -24,8 +26,17 @@ class CartViewModel: ObservableObject {
     func toggleCart(item: Product) {
         if cartItems.contains(item) {
             cartItems.removeAll { $0 == item }
+            selectedItems.remove(item)
         } else {
             cartItems.append(item)
+        }
+    }
+    
+    func toggleSelection(item: Product) {
+        if selectedItems.contains(item) {
+            selectedItems.remove(item)
+        } else {
+            selectedItems.insert(item)
         }
     }
     
@@ -33,8 +44,21 @@ class CartViewModel: ObservableObject {
         return cartItems.contains(item)
     }
     
+    func selectAll() {
+        selectedItems = Set(cartItems)
+    }
+    
+    func deselectAll() {
+        selectedItems.removeAll()
+    }
+    
+    func isAllSelected() -> Bool {
+        return !cartItems.isEmpty && selectedItems.count == cartItems.count
+    }
+    
     func clearCart() {
         cartItems.removeAll()
+        selectedItems.removeAll()
     }
     
     func saveCart() {

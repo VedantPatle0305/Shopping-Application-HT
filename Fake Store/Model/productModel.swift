@@ -12,10 +12,14 @@ struct Rating: Codable {
     let count: Int
 }
 
-struct Product: Codable, Identifiable, Equatable{
+struct Product: Codable, Identifiable, Equatable, Hashable{
     static func == (lhs: Product, rhs: Product) -> Bool {
         return lhs.id == rhs.id
     }
+    
+    func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }
     
     let id: Int
     let title: String

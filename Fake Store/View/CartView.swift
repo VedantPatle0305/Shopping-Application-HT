@@ -10,7 +10,6 @@ import SwiftUI
 struct CartView: View {
     @ObservedObject var cartVM: CartViewModel
     @State private var showThankYou = false
-//    @State private var selectAll = true
     
     let screenWidth = UIScreen.main.bounds.width
     
@@ -31,8 +30,6 @@ struct CartView: View {
             .background(Color(.systemGray5))
             .cornerRadius(12)
             
-            
-            
             if cartVM.cartItems.isEmpty {
                 VStack(spacing: 12) {
                     Image(systemName: "cart")
@@ -48,9 +45,46 @@ struct CartView: View {
                 .frame(maxHeight: .infinity)
             }
             else{
+                
+                HStack(alignment: .center) {
+                    Button(action: {
+                        if cartVM.isAllSelected() {
+                            cartVM.deselectAll()
+                        } else {
+                            cartVM.selectAll()
+                        }
+                    }) {
+                        Image(systemName: cartVM.isAllSelected() ? "checkmark.square.fill" : "square")
+                                .foregroundColor(.blue)
+                                .fontWeight(.bold)
+                    }
+                    Text("Select all")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                    
+                    Spacer()
+                    
+                    Image(systemName: "square.and.arrow.up")
+                        .frame(width: 30, height: 30)
+                    
+                    Image(systemName: "pencil.line")
+                        .frame(width: 30, height: 30)
+                    
+                    
+                }
+                .frame(width: screenWidth*0.9)
+                .padding(10)
+                
                 List {
                     ForEach(cartVM.cartItems) { product in
                         HStack {
+                            Button(action: {
+                                cartVM.toggleSelection(item: product)
+                            }) {
+                                Image(systemName: cartVM.selectedItems.contains(product) ? "checkmark.square.fill" : "square")
+                                    .foregroundColor(.blue)
+                            }
+                            
                             AsyncImage(url: URL(string: product.image)) { image in
                                 image.resizable().scaledToFit()
                             } placeholder: {
@@ -66,8 +100,8 @@ struct CartView: View {
                             Spacer()
                             Text("$\(product.price, specifier: "%.2f")")
                         }
-                        .padding()
-                        .frame(width: screenWidth*0.9)
+                        .padding(10)
+                        .frame(width: screenWidth*0.95)
                         .cornerRadius(10)
                     }
                     .onDelete { indexSet in
@@ -77,7 +111,6 @@ struct CartView: View {
                 .listStyle(.plain)
                 .frame(width: screenWidth)
             }
-            
             
             
             Button("Checkout") {
