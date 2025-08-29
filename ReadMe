@@ -6,6 +6,7 @@ A simple shopping app built with SwiftUI and MVVM architecture, showcasing produ
 
 App is being built and tested on XCode version 16.4 and Swift compiler version 6.
 Make sure you are on the same version to avoid the configuration errors.
+Take pull from main branch.
 
 ---
 
