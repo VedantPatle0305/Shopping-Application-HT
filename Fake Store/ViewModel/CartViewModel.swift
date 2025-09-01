@@ -15,12 +15,18 @@ class CartViewModel: ObservableObject {
         }
     }
     
-    @Published var selectedItems: Set<Product> = []
+    @Published var selectedItems: Set<Product> = []{
+        didSet {
+            saveSelectedItems()
+        }
+    }
     
     private let cartKey = "savedCart"
+    private let selectedItemKey = "savedSelectedItems"
     
     init() {
         loadCart()
+        loadSelectedItems()
     }
     
     func toggleCart(item: Product) {
@@ -71,6 +77,19 @@ class CartViewModel: ObservableObject {
         if let data = UserDefaults.standard.data(forKey: cartKey),
            let decoded = try? JSONDecoder().decode([Product].self, from: data) {
             cartItems = decoded
+        }
+    }
+    
+    func saveSelectedItems(){
+        if let encodedData = try? JSONEncoder().encode(selectedItems) {
+            UserDefaults.standard.set(encodedData, forKey: selectedItemKey)
+        }
+    }
+    
+    func loadSelectedItems(){
+        if let data = UserDefaults.standard.data(forKey: selectedItemKey),
+           let decoded = try? JSONDecoder().decode(Set<Product>.self, from: data) {
+            selectedItems = decoded
         }
     }
     
