@@ -10,6 +10,7 @@ import SwiftUI
 struct ProductDetailView: View {
     let product: Product
     @ObservedObject var cartVM: CartViewModel
+    @Environment(\.dismiss) var Dismiss
     
     let screenheight = UIScreen.main.bounds.height
     let screenwidth = UIScreen.main.bounds.width
@@ -188,20 +189,36 @@ struct ProductDetailView: View {
                 
             }
             .padding()
-            .navigationTitle("Product Detail")
-            .toolbar {
-                NavigationLink(destination: CartView(cartVM: cartVM)) {
-                    ZStack(alignment: .topTrailing) {
-                        Image(systemName: "cart")
-                            .font(.title3)
-                        if cartVM.cartItems.count > 0 {
-                            Text("\(cartVM.cartItems.count)")
-                                .font(.caption2)
-                                .foregroundColor(.white)
-                                .padding(5)
-                                .background(Color.gray)
-                                .clipShape(Circle())
-                                .offset(x: 10, y: -10)
+            .navigationBarBackButtonHidden(true)
+            .toolbar{
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        Dismiss()
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .frame(width: 40, height: 40)
+                            .background(
+                                Color(.systemGray5)
+                                    .cornerRadius(100)
+                            )
+
+                    }
+                }
+                
+                ToolbarItem(placement: .topBarTrailing){
+                    NavigationLink(destination: CartView(cartVM: cartVM)) {
+                        ZStack(alignment: .topTrailing) {
+                            Image(systemName: "cart")
+                                .font(.title3)
+                            if cartVM.cartItems.count > 0 {
+                                Text("\(cartVM.cartItems.count)")
+                                    .font(.caption2)
+                                    .foregroundColor(.white)
+                                    .padding(5)
+                                    .background(Color.gray)
+                                    .clipShape(Circle())
+                                    .offset(x: 10, y: -10)
+                            }
                         }
                     }
                 }

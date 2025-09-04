@@ -10,25 +10,32 @@ import SwiftUI
 struct CartView: View {
     @ObservedObject var cartVM: CartViewModel
     @State private var showThankYou = false
+    @Environment(\.dismiss) var Dismiss
     
     let screenWidth = UIScreen.main.bounds.width
     
     var body: some View {
         VStack {
-            HStack{
-                Image(systemName: "location.circle.fill")
-                    .foregroundColor(Color.gray)
-                
-                Text("Apt 5B, Springfield, CA")
-                    .font(.subheadline)
-                Spacer()
-                Image(systemName: "chevron.right")
-                    .foregroundColor(Color.gray)
+            VStack{
+                HStack{
+                    Image(systemName: "location.circle.fill")
+                        .foregroundColor(Color.gray)
+                    
+                    Text("Apt 5B, Springfield, CA")
+                        .font(.subheadline)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(Color.gray)
+                }
+                .padding()
+                .frame(width: screenWidth*0.9, height: 50)
+                .background(Color(.systemGray5))
+                .cornerRadius(12)
             }
             .padding()
-            .frame(width: screenWidth*0.9, height: 50)
-            .background(Color(.systemGray5))
-            .cornerRadius(12)
+            .frame(maxWidth: .infinity)
+            .clipShape(RoundedCorner(radius: 20, corners: [.bottomLeft, .bottomRight]))
+            
             
             if cartVM.cartItems.isEmpty {
                 VStack(spacing: 12) {
@@ -135,6 +142,22 @@ struct CartView: View {
             }
         }
         .navigationTitle("Cart")
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    Dismiss()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .frame(width: 40, height: 40)
+                        .background(
+                            Color(.systemGray5)
+                                .cornerRadius(100)
+                        )
+
+                }
+            }
+        }
     }
 }
 
