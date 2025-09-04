@@ -63,7 +63,8 @@ class CartViewModel: ObservableObject {
     }
     
     func clearCart() {
-        cartItems.removeAll()
+//        cartItems.removeAll()
+        cartItems.removeAll {selectedItems.contains($0)}
         selectedItems.removeAll()
     }
     
